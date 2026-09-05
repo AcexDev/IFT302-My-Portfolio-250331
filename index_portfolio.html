@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Muhammad Abdulrazaq — Backend Developer</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f0;
+      --card: #ffffff;
+      --text: #151515;
+      --muted: #666;
+      --border: #ddd;
+      --accent: #177245;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111;
+      --card: #191919;
+      --text: #eee;
+      --muted: #aaa;
+      --border: #303030;
+      --accent: #42c98a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1050px, 90%);
+      margin: auto;
+    }
+
+    /* NAV */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .links {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+    }
+
+    .links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .menu {
+      display: none;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 100px 0 80px;
+      max-width: 800px;
+    }
+
+    .tag {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1;
+      margin: 0;
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 25px 0;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .button:hover {
+      opacity: .85;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 75px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      margin-bottom: 35px;
+    }
+
+    .section-title small {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .section-title h2 {
+      margin: 5px 0 0;
+      font-size: 32px;
+    }
+
+    /* PROJECTS */
+
+    .projects {
+      display: grid;
+      gap: 15px;
+    }
+
+    .project {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 25px;
+      border-radius: 6px;
+    }
+
+    .project h3 {
+      margin: 0 0 5px;
+      font-size: 21px;
+    }
+
+    .project .stack {
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .project p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* EXPERIENCE */
+
+    .experience {
+      display: grid;
+      gap: 30px;
+    }
+
+    .job {
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+
+    .job time {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .job h3 {
+      margin: 5px 0;
+    }
+
+    .job p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .job ul {
+      padding-left: 20px;
+    }
+
+    /* SKILLS */
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 8px 13px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* CONTACT */
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .contact p {
+      color: var(--muted);
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-links a {
+      padding: 15px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 5px;
+    }
+
+    .contact-links a:hover {
+      border-color: var(--accent);
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+
+      .links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        padding: 20px 5%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .links.show {
+        display: flex;
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .hero {
+        padding: 70px 0;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .contact {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="logo">
+        MA<span>.</span>
+      </a>
+
+      <div class="links" id="navLinks">
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="themeButton">Dark</button>
+        <button class="menu" id="menuButton">☰</button>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <main>
+
+    <!-- HERO -->
+
+    <header class="container hero">
+
+      <div class="tag">
+        BACKEND / FULL-STACK DEVELOPER
+      </div>
+
+      <h1>
+        Muhammad<br>
+        <span>Abdulrazaq.</span>
+      </h1>
+
+      <p>
+        I build backend systems, REST APIs and full-stack applications
+        with Django, PostgreSQL and modern web technologies.
+      </p>
+
+      <div class="buttons">
+        <a href="#work" class="button primary">
+          View my work
+        </a>
+
+        <a href="#contact" class="button">
+          Contact me
+        </a>
+
+        <a
+          href="https://github.com/AcexDev"
+          target="_blank"
+          class="button"
+        >
+          GitHub ↗
+        </a>
+      </div>
+
+    </header>
+
+
+    <!-- PROJECTS -->
+
+    <section id="work">
+      <div class="container">
+
+        <div class="section-title">
+          <small>01 / WORK</small>
+          <h2>Selected projects</h2>
+        </div>
+
+        <div class="projects">
+
+          <article class="project">
+            <h3>ShieldAI</h3>
+
+            <div class="stack">
+              Django REST Framework · Gemini · PostgreSQL
+            </div>
+
+            <p>
+              A Nigerian-focused scam detection platform that analyzes
+              suspicious messages and links using AI, a community threat
+              database and threat actor registry.
+            </p>
+          </article>
+
+
+          <article class="project">
+            <h3>CertVerify</h3>
+
+            <div class="stack">
+              Django · FastAPI · Gemini Vision · React
+            </div>
+
+            <p>
+              An AI-assisted certificate verification platform designed
+              to help detect fraudulent academic and professional
+              credentials.
+            </p>
+          </article>
+
+
+          <article class="project">
+            <h3>Vota</h3>
+
+            <div class="stack">
+              Django · PostgreSQL · django-allauth
+            </div>
+
+            <p>
+              A multi-mode polling platform supporting elections,
+              polls and surveys with authentication, live results and
+              database-level voter integrity.
+            </p>
+          </article>
+
+
+          <article class="project">
+            <h3>Qartex</h3>
+
+            <div class="stack">
+              Django REST Framework · SimpleJWT · React
+            </div>
+
+            <p>
+              A decoupled ecommerce application with REST APIs,
+              JWT authentication, filtering, pagination and Paystack
+              payment integration.
+            </p>
+          </article>
+
+
+          <article class="project">
+            <h3>LibroVault</h3>
+
+            <div class="stack">
+              Django · Google Books API · Cloudinary
+            </div>
+
+            <p>
+              A personal digital library with book search, reading
+              progress, cover uploads, user accounts and a responsive
+              interface.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- EXPERIENCE -->
+
+    <section id="experience">
+      <div class="container">
+
+        <div class="section-title">
+          <small>02 / EXPERIENCE</small>
+          <h2>What I've been doing</h2>
+        </div>
+
+        <div class="experience">
+
+          <article class="job">
+            <time>2026</time>
+
+            <h3>Team Cipher5-UI — CertVerify</h3>
+
+            <p>
+              OPay & Google NICA 2026 Hackathon
+            </p>
+
+            <ul>
+              <li>
+                Built the AI-powered certificate verification pipeline.
+              </li>
+
+              <li>
+                Worked across Django, FastAPI and React.
+              </li>
+
+              <li>
+                Produced architecture documentation and competition
+                materials.
+              </li>
+            </ul>
+          </article>
+
+
+          <article class="job">
+            <time>2025</time>
+
+            <h3>Backend Lead — Team 234Forge</h3>
+
+            <p>
+              234 AI Hackathon — ShieldAI
+            </p>
+
+            <ul>
+              <li>
+                Led backend architecture for the scam detection platform.
+              </li>
+
+              <li>
+                Built REST API endpoints and the threat database.
+              </li>
+            </ul>
+          </article>
+
+
+          <article class="job">
+            <time>2024 — Present</time>
+
+            <h3>B.Sc. Computer Science</h3>
+
+            <p>
+              University of Ibadan · CGPA 4.88 / 5.00
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SKILLS -->
+
+    <section id="skills">
+      <div class="container">
+
+        <div class="section-title">
+          <small>03 / SKILLS</small>
+          <h2>Technologies</h2>
+        </div>
+
+        <div class="skills">
+
+          <span class="skill">Python</span>
+          <span class="skill">Django</span>
+          <span class="skill">Django REST Framework</span>
+          <span class="skill">PostgreSQL</span>
+          <span class="skill">SimpleJWT</span>
+          <span class="skill">MySQL</span>
+          <span class="skill">SQLite</span>
+          <span class="skill">Celery</span>
+          <span class="skill">React</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Git</span>
+          <span class="skill">GitHub</span>
+          <span class="skill">Paystack</span>
+          <span class="skill">Gemini</span>
+          <span class="skill">Cloudinary</span>
+          <span class="skill">Render</span>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <small>04 / CONTACT</small>
+          <h2>Let's talk.</h2>
+        </div>
+
+        <div class="contact">
+
+          <div>
+            <p>
+              Interested in working together, discussing a project,
+              or talking backend engineering?
+            </p>
+
+            <p>
+              I'm open to backend and full-stack opportunities.
+            </p>
+          </div>
+
+
+          <div class="contact-links">
+
+            <a href="mailto:abdulrazaqm003@gmail.com">
+              Email →
+            </a>
+
+            <a href="tel:+2349163114032">
+              +234 916 311 4032 →
+            </a>
+
+            <a
+              href="https://github.com/AcexDev"
+              target="_blank"
+            >
+              GitHub ↗
+            </a>
+
+            <a href="Muhammad_Abdulrazaq_Resume.pdf" download>
+              Download Resume ↓
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="container">
+      © 2026 Muhammad Abdulrazaq
+    </div>
+  </footer>
+
+
+  <script>
+    const themeButton = document.getElementById("themeButton");
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    themeButton.addEventListener("click", () => {
+      const dark = document.documentElement.dataset.theme === "dark";
+
+      document.documentElement.dataset.theme = dark ? "light" : "dark";
+      themeButton.textContent = dark ? "Dark" : "Light";
+    });
+
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+  </script>
+
+</body>
+</html>
+
